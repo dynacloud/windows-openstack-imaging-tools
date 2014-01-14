@@ -4,7 +4,7 @@ try
 {
 #    $Host.UI.RawUI.WindowTitle = "Downloading PSWindowsUpdate..."
 
-#    $psWindowsUpdateUrl = "http://gallery.technet.microsoft.com/scriptcenter/2d191bcd-3308-4edd-9de2-88dff796b0bc/file/41459/25/PSWindowsUpdate.zip"
+#    $psWindowsUpdateUrl = "http://gallery.technet.microsoft.com/scriptcenter/2d191bcd-3308-4edd-9de2-88dff796b0bc/file/41459/43/PSWindowsUpdate.zip"
 #    $psWindowsUpdatePath = "$ENV:Temp\PSWindowsUpdate.zip"
 #    (new-object System.Net.WebClient).DownloadFile($psWindowsUpdateUrl, $psWindowsUpdatePath)
 
