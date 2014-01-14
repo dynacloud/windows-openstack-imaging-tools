@@ -2,32 +2,7 @@ $ErrorActionPreference = "Stop"
 
 try
 {
-    $Host.UI.RawUI.WindowTitle = "Downloading PSWindowsUpdate..."
-
-    $psWindowsUpdateUrl = "http://gallery.technet.microsoft.com/scriptcenter/2d191bcd-3308-4edd-9de2-88dff796b0bc/file/41459/43/PSWindowsUpdate.zip"
-    $psWindowsUpdatePath = "$ENV:Temp\PSWindowsUpdate.zip"
-    (new-object System.Net.WebClient).DownloadFile($psWindowsUpdateUrl, $psWindowsUpdatePath)
-
-    $Host.UI.RawUI.WindowTitle = "Installing PSWindowsUpdate..."
-    foreach($item in (New-Object -com shell.application).NameSpace($psWindowsUpdatePath).Items())
-    {
-        $yesToAll = 16
-        (New-Object -com shell.application).NameSpace("$ENV:SystemRoot\System32\WindowsPowerShell\v1.0\Modules").copyhere($item, $yesToAll)
-    }
-    del $psWindowsUpdatePath
-
-    Import-Module PSWindowsUpdate
-
-    $Host.UI.RawUI.WindowTitle = "Installing updates..."
-
-    Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
-    if (Get-WURebootStatus -Silent)
-    {
-        $Host.UI.RawUI.WindowTitle = "Updates installation finished. Rebooting."
-        shutdown /r /t 0
-    }
-    else
-    {
+    
         $Host.UI.RawUI.WindowTitle = "Downloading Cloudbase-Init..."
 
         $CloudbaseInitMsi = "$ENV:Temp\CloudbaseInitSetup_Beta.msi"
@@ -54,7 +29,7 @@ try
         $Host.UI.RawUI.WindowTitle = "Running Sysprep..."
         $unattendedXmlPath = "$ENV:ProgramFiles (x86)\Cloudbase Solutions\Cloudbase-Init\conf\Unattend.xml"
         & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$unattendedXmlPath"
-    }
+    
 }
 catch
 {
